@@ -1,0 +1,80 @@
+@startuml
+
+' Interfaces
+interface AparelhoTelefonico {
+    void ligar(String numero)
+    void atender(String telefone)
+}
+
+interface AutenticacaoIPhone {
+    boolean verificadorDeSenha(String senha)
+    boolean verificadorDeEmail(String email)
+}
+
+interface NavegadorInternet {
+    void exibirPagina(String url)
+    void adicionarNovaAba(String urlNova)
+    void atualizarPagina(int pos, String urlNova)
+}
+
+interface ReprodutorMusical {
+    void tocar(Musica musica)
+    void pausar()
+    void selecionarMusica(String nomeDaMusica)
+}
+
+' Enumerations
+enum GeneroMusical {
+    ELETRONICA, ROCK, JAZZ, COUNTRY, POP, HIPHOP, FUNK
+}
+
+' Classes
+class Usuario {
+    String nome
+    String senha
+    String email
+}
+
+class Contato {
+    String nome
+    String telefone
+    String apelido
+}
+
+class Musica {
+    String nome
+    double duracao
+    GeneroMusical genero
+}
+
+' Main Class
+class Iphone {
+    String modelo
+    String tamanho
+    double preco
+    Usuario usuario
+}
+
+' Subclasses inside Iphone
+class Iphone::Navegador {
+    List<String> abas
+    int numeroAbas
+}
+
+class Iphone::Musicas {
+    List<Musica> listaDeMusicas
+    Musica musicaTocando
+}
+
+class Iphone::Contatos {
+    List<Contato> listaDeContatos
+    Map<String, String> historicoDeLigacoes
+}
+
+' Relationships
+Iphone --|> AutenticacaoIPhone
+Iphone::Navegador --|> NavegadorInternet
+Iphone::Musicas --|> ReprodutorMusical
+Iphone::Contatos --|> AparelhoTelefonico
+
+@enduml
